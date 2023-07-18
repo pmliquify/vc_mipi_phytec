@@ -1,0 +1,12 @@
+#!/bin/bash
+
+WORKING_DIR=$(dirname $PWD)
+BIN_DIR=$WORKING_DIR/bin
+
+SRC_DIR=$WORKING_DIR/src
+PATCH_DIR=$WORKING_DIR/patch
+BUILD_DIR=$WORKING_DIR/build
+
+DOWNLOADS_DIR=$BUILD_DIR/downloads
+KERNEL_SOURCE=$BUILD_DIR/linux-phytec-imx
+MODULES_DIR=$BUILD_DIR/modules

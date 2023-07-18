@@ -1,0 +1,46 @@
+/dts-v1/;
+/plugin/;
+
+// ------------------------------------------------------------------------------------------------
+//  Supported number of lanes
+// -----+------------------------------------------------------------------------------------------
+//  1   | OV7251, IMX296, IMX297
+//  2   | OV9281, IMX264, IMX265
+//  2,4 | IMX178, IMX183, IMX226, IMX250, IMX252, IMX273, IMX290, IMX327, IMX335, IMX392, 
+//      | IMX412, IMX415, IMX568
+// -----+------------------------------------------------------------------------------------------
+#define VC_MIPI_LANES   2
+
+#if VC_MIPI_LANES == 1
+            #define DATA_LANES <1>
+            #define NUM_LANES "1" 
+#endif
+#if VC_MIPI_LANES == 2
+            #define DATA_LANES <1 2>
+            #define NUM_LANES "2" 
+#endif
+#if VC_MIPI_LANES == 4
+        #define DATA_LANES <1 2 3 4>
+        #define NUM_LANES "4" 
+#endif
+
+
+&i2c3 { 
+        #address-cells = <1>;
+        #size-cells = <0>;
+        status = "okay";
+
+        vc_mipi@1a {
+                compatible 	= "vc,vc_mipi";
+                reg 		= <0x1a>;
+                status 		= "okay";
+                num_lanes 	= NUM_LANES; // This property is required by the driver
+
+                port {
+                        vc_mipi_ep: endpoint {
+                                clocks-lanes = <0>;
+                                remote-endpoint = <&mipi_csi1_ep>;
+                        };
+                };
+            };
+};
