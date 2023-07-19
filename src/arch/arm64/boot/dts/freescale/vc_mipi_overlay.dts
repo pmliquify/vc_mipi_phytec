@@ -1,31 +1,35 @@
 /dts-v1/;
 /plugin/;
 
-// ------------------------------------------------------------------------------------------------
-//  Supported number of lanes
-// -----+------------------------------------------------------------------------------------------
-//  1   | OV7251, IMX296, IMX297
-//  2   | OV9281, IMX264, IMX265
-//  2,4 | IMX178, IMX183, IMX226, IMX250, IMX252, IMX273, IMX290, IMX327, IMX335, IMX392, 
-//      | IMX412, IMX415, IMX568
-// -----+------------------------------------------------------------------------------------------
-#define VC_MIPI_LANES   2
+&cameradev {
+	status = "okay";
+};
 
-#if VC_MIPI_LANES == 1
-            #define DATA_LANES <1>
-            #define NUM_LANES "1" 
-#endif
-#if VC_MIPI_LANES == 2
-            #define DATA_LANES <1 2>
-            #define NUM_LANES "2" 
-#endif
-#if VC_MIPI_LANES == 4
-        #define DATA_LANES <1 2 3 4>
-        #define NUM_LANES "4" 
-#endif
+&isi_0 {
+	status = "okay";
 
+        cap_device {
+		status = "okay";
+	};
+}
 
-&i2c3 { 
+&mipi_csi_0 {
+	#address-cells = <1>;
+	#size-cells = <0>;
+	status = "okay";
+	port@0 {
+		reg = <0>;
+		mipi_csi0_ep: endpoint {
+			remote-endpoint = <&vc_mipi_ep>;
+			data-lanes = <2>; // Set <4> for 4 lanes
+			csis-hs-settle = <22>;
+			csis-clk-settle = <0>;
+			csis-wclk;
+		};
+	};
+};
+
+&i2c3 { // Check on which
         #address-cells = <1>;
         #size-cells = <0>;
         status = "okay";
@@ -34,12 +38,12 @@
                 compatible 	= "vc,vc_mipi";
                 reg 		= <0x1a>;
                 status 		= "okay";
-                num_lanes 	= NUM_LANES; // This property is required by the driver
 
                 port {
                         vc_mipi_ep: endpoint {
                                 clocks-lanes = <0>;
-                                remote-endpoint = <&mipi_csi1_ep>;
+                                data-lanes = <1 2>; // Set <1 2 3 4> for 4 lanes
+                                remote-endpoint = <&mipi_csi0_ep>;
                         };
                 };
             };
