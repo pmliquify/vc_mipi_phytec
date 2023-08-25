@@ -13,31 +13,31 @@
 #define vc_warn(dev, fmt, ...) dev_warn(dev, fmt, ##__VA_ARGS__)
 #define vc_err(dev, fmt, ...) dev_err(dev, fmt, ##__VA_ARGS__)
 
-#define FLAG_RESET_ALWAYS		(1 <<  0)
-#define FLAG_EXPOSURE_SONY      	(1 <<  1)
-#define FLAG_EXPOSURE_NORMAL    	(1 <<  2)
-#define FLAG_SET_FLASH_DURATION		(1 <<  3)
+#define FLAG_RESET_ALWAYS               (1 <<  0)
+#define FLAG_EXPOSURE_SONY              (1 <<  1)
+#define FLAG_EXPOSURE_NORMAL            (1 <<  2)
+#define FLAG_EXPOSURE_OMNIVISION        (1 <<  3)
 
-#define FLAG_IO_ENABLED           	(1 <<  4)
-#define FLAG_FORMAT_GBRG		(1 <<  5)
-#define FLAG_DOUBLE_HEIGHT        	(1 <<  6)
-#define FLAG_INCREASE_FRAME_RATE       	(1 <<  7)
+#define FLAG_IO_ENABLED                 (1 <<  4)
+#define FLAG_FORMAT_GBRG                (1 <<  5)
+#define FLAG_DOUBLE_HEIGHT              (1 <<  6)
+#define FLAG_INCREASE_FRAME_RATE        (1 <<  7)
 
-#define FLAG_TRIGGER_DISABLE      	(1 <<  8)
-#define FLAG_TRIGGER_EXTERNAL     	(1 <<  9)
-#define FLAG_TRIGGER_PULSEWIDTH   	(1 << 10)
-#define FLAG_TRIGGER_SELF         	(1 << 11)
-#define FLAG_TRIGGER_SELF_V2         	(1 << 12)
-#define FLAG_TRIGGER_SINGLE  	  	(1 << 13)
-#define FLAG_TRIGGER_SYNC         	(1 << 14)
-#define FLAG_TRIGGER_STREAM_EDGE  	(1 << 15)
-#define FLAG_TRIGGER_STREAM_LEVEL 	(1 << 16)
-#define FLAG_TRIGGER_SLAVE       	(1 << 17)
+#define FLAG_TRIGGER_DISABLE            (1 <<  8)
+#define FLAG_TRIGGER_EXTERNAL           (1 <<  9)
+#define FLAG_TRIGGER_PULSEWIDTH         (1 << 10)
+#define FLAG_TRIGGER_SELF               (1 << 11)
+#define FLAG_TRIGGER_SELF_V2            (1 << 12)
+#define FLAG_TRIGGER_SINGLE             (1 << 13)
+#define FLAG_TRIGGER_SYNC               (1 << 14)
+#define FLAG_TRIGGER_STREAM_EDGE        (1 << 15)
+#define FLAG_TRIGGER_STREAM_LEVEL       (1 << 16)
+#define FLAG_TRIGGER_SLAVE              (1 << 17)
 
-#define FORMAT_RAW08			0x2a
-#define FORMAT_RAW10			0x2b
-#define FORMAT_RAW12			0x2c
-#define FORMAT_RAW14			0x2d
+#define FORMAT_RAW08                    0x2a
+#define FORMAT_RAW10                    0x2b
+#define FORMAT_RAW12                    0x2c
+#define FORMAT_RAW14                    0x2d
 
 
 struct vc_desc_mode {
@@ -158,13 +158,13 @@ struct vc_ctrl {
         struct vc_control framerate;
         struct vc_control blacklevel;
         // Modes & Frame Formats
-        struct vc_frame frame;		// Pixel
+        struct vc_frame frame;          // Pixel
         // Control and status registers
         struct vc_csr csr;
         // Exposure
         struct vc_timing expo_timing[8];
-        __u32 clk_ext_trigger;		// Hz
-        __u32 clk_pixel;		// Hz
+        __u32 clk_ext_trigger;          // Hz
+        __u32 clk_pixel;                // Hz
         __u32 retrigger_min;
         // Flash
         __u32 flash_factor;
@@ -177,14 +177,14 @@ struct vc_state {
         __u8 mode;
         __u32 vmax;
         __u32 shs;
-        __u32 exposure;			// µs
+        __u32 exposure;                 // µs
         __u32 gain;
         __u32 blacklevel;
         __u32 exposure_cnt;
         __u32 retrigger_cnt;
         __u32 framerate;
         __u32 format_code;
-        struct vc_frame frame;		// Pixel
+        struct vc_frame frame;          // Pixel
         __u8 num_lanes;
         __u8 io_mode;
         __u8 trigger_mode;
